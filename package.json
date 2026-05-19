@@ -11,8 +11,12 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "**/*.{ts,tsx}": ["prettier --write", "eslint --fix"],
-    "**/*.{json,md,yaml}": ["prettier --write"]
+    "**/*.{ts,tsx,js}": [
+      "prettier --write"
+    ],
+    "**/*.{json,md,yaml}": [
+      "prettier --write"
+    ]
   },
   "pnpm": {
     "onlyBuiltDependencies": [
