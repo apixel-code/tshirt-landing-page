@@ -6,9 +6,11 @@
     "dev": "nodemon --watch src --ext ts --exec tsx src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
+    "seed": "tsx src/scripts/seed.ts",
     "lint": "eslint src --ext .ts"
   },
   "dependencies": {
+    "@threadly/shared": "workspace:*",
     "cors": "2.8.5",
     "dotenv": "16.4.5",
     "express": "4.19.2",
