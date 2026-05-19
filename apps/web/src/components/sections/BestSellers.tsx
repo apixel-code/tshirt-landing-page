@@ -4,7 +4,7 @@ import { ProductCardSkeleton } from "../ui/Skeleton";
 import { useProducts } from "../../hooks/useProducts";
 
 export default function BestSellers() {
-  const { data: all, isLoading } = useProducts({ limit: 12 });
+  const { data: all, isLoading, isError } = useProducts({ limit: 12 });
   const products = [...(all ?? [])].sort((a, b) => b.salesCount - a.salesCount).slice(0, 6);
 
   return (
@@ -19,15 +19,21 @@ export default function BestSellers() {
           </h2>
         </FadeUp>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
-          {isLoading
-            ? Array.from({ length: 6 }).map((_, i) => <ProductCardSkeleton key={i} />)
-            : products.map((product, i) => (
-                <FadeUp key={product._id} delay={i * 0.07}>
-                  <ProductCard product={product} />
-                </FadeUp>
-              ))}
-        </div>
+        {isError ? (
+          <p className="text-zinc-400 text-sm text-center py-20">
+            Couldn't load products — please refresh.
+          </p>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
+            {isLoading
+              ? Array.from({ length: 6 }).map((_, i) => <ProductCardSkeleton key={i} />)
+              : products.map((product, i) => (
+                  <FadeUp key={product._id} delay={i * 0.07}>
+                    <ProductCard product={product} />
+                  </FadeUp>
+                ))}
+          </div>
+        )}
       </div>
     </section>
   );

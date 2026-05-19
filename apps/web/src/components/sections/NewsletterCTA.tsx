@@ -100,7 +100,7 @@ export default function NewsletterCTA() {
                   type="submit"
                   size="md"
                   disabled={isPending}
-                  className="whitespace-nowrap sm:self-start"
+                  className="whitespace-nowrap w-full sm:w-auto sm:self-start"
                 >
                   {isPending ? "Joining…" : "Get Access"}
                 </Button>

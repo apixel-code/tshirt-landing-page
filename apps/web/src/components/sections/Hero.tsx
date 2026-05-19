@@ -39,7 +39,7 @@ export default function Hero() {
 
           <motion.h1
             variants={item}
-            className="font-display text-6xl sm:text-7xl lg:text-[5.5rem] font-extrabold leading-[0.9] tracking-tighter text-white text-balance"
+            className="font-display text-5xl sm:text-7xl lg:text-[5.5rem] font-extrabold leading-[0.9] tracking-tighter text-white text-balance"
           >
             WEAR THE
             <br />

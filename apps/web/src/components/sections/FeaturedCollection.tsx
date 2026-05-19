@@ -3,8 +3,12 @@ import ProductCard from "../ui/ProductCard";
 import { ProductCardSkeleton } from "../ui/Skeleton";
 import { useProducts } from "../../hooks/useProducts";
 
+function SectionError({ message }: { message: string }) {
+  return <p className="text-zinc-400 text-sm text-center py-20">{message}</p>;
+}
+
 export default function FeaturedCollection() {
-  const { data: products, isLoading } = useProducts({ featured: true, limit: 8 });
+  const { data: products, isLoading, isError } = useProducts({ featured: true, limit: 8 });
 
   return (
     <section id="featured" className="py-24 bg-zinc-50">
@@ -37,15 +41,19 @@ export default function FeaturedCollection() {
           </a>
         </FadeUp>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {isLoading
-            ? Array.from({ length: 8 }).map((_, i) => <ProductCardSkeleton key={i} />)
-            : (products ?? []).map((product, i) => (
-                <FadeUp key={product._id} delay={i * 0.06}>
-                  <ProductCard product={product} />
-                </FadeUp>
-              ))}
-        </div>
+        {isError ? (
+          <SectionError message="Couldn't load products — please refresh the page." />
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+            {isLoading
+              ? Array.from({ length: 8 }).map((_, i) => <ProductCardSkeleton key={i} />)
+              : (products ?? []).map((product, i) => (
+                  <FadeUp key={product._id} delay={i * 0.06}>
+                    <ProductCard product={product} />
+                  </FadeUp>
+                ))}
+          </div>
+        )}
       </div>
     </section>
   );

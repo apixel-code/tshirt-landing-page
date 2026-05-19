@@ -11,7 +11,7 @@ const FALLBACK_IMAGES: Record<string, string> = {
 };
 
 export default function CategoryGrid() {
-  const { data: categories, isLoading } = useCategories();
+  const { data: categories, isLoading, isError } = useCategories();
 
   return (
     <section id="categories" className="py-24 bg-white">
@@ -25,6 +25,11 @@ export default function CategoryGrid() {
           </h2>
         </FadeUp>
 
+        {isError && (
+          <p className="text-zinc-400 text-sm text-center py-20">
+            Couldn't load categories — please refresh.
+          </p>
+        )}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {isLoading
             ? Array.from({ length: 4 }).map((_, i) => <CategoryCardSkeleton key={i} />)
